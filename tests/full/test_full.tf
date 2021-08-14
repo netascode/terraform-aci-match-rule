@@ -22,13 +22,13 @@ module "main" {
   tenant      = aci_rest.fvTenant.content.name
   name        = "MR1"
   description = "My Description"
-  prefixes = [{
-    ip          = "10.1.1.0/24"
-    description = "Prefix Description"
-    aggregate   = true
-    from_length = 25
-    to_length   = 32
-  }]
+  # prefixes = [{
+  #   ip          = "10.1.1.0/24"
+  #   description = "Prefix Description"
+  #   aggregate   = true
+  #   from_length = 25
+  #   to_length   = 32
+  # }]
 }
 
 data "aci_rest" "rtctrlSubjP" {
@@ -53,42 +53,42 @@ resource "test_assertions" "rtctrlSubjP" {
   }
 }
 
-data "aci_rest" "rtctrlMatchRtDest" {
-  dn = "${data.aci_rest.rtctrlSubjP.id}/dest-[10.1.1.0/24]"
+# data "aci_rest" "rtctrlMatchRtDest" {
+#   dn = "${data.aci_rest.rtctrlSubjP.id}/dest-[10.1.1.0/24]"
 
-  depends_on = [module.main]
-}
+#   depends_on = [module.main]
+# }
 
-resource "test_assertions" "rtctrlMatchRtDest" {
-  component = "rtctrlMatchRtDest"
+# resource "test_assertions" "rtctrlMatchRtDest" {
+#   component = "rtctrlMatchRtDest"
 
-  equal "ip" {
-    description = "ip"
-    got         = data.aci_rest.rtctrlMatchRtDest.content.ip
-    want        = "10.1.1.0/24"
-  }
+#   equal "ip" {
+#     description = "ip"
+#     got         = data.aci_rest.rtctrlMatchRtDest.content.ip
+#     want        = "10.1.1.0/24"
+#   }
 
-  equal "aggregate" {
-    description = "aggregate"
-    got         = data.aci_rest.rtctrlMatchRtDest.content.aggregate
-    want        = "yes"
-  }
+#   equal "aggregate" {
+#     description = "aggregate"
+#     got         = data.aci_rest.rtctrlMatchRtDest.content.aggregate
+#     want        = "yes"
+#   }
 
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.rtctrlMatchRtDest.content.descr
-    want        = "Prefix Description"
-  }
+#   equal "descr" {
+#     description = "descr"
+#     got         = data.aci_rest.rtctrlMatchRtDest.content.descr
+#     want        = "Prefix Description"
+#   }
 
-  equal "fromPfxLen" {
-    description = "fromPfxLen"
-    got         = data.aci_rest.rtctrlMatchRtDest.content.fromPfxLen
-    want        = "25"
-  }
+#   equal "fromPfxLen" {
+#     description = "fromPfxLen"
+#     got         = data.aci_rest.rtctrlMatchRtDest.content.fromPfxLen
+#     want        = "25"
+#   }
 
-  equal "toPfxLen" {
-    description = "toPfxLen"
-    got         = data.aci_rest.rtctrlMatchRtDest.content.toPfxLen
-    want        = "32"
-  }
-}
+#   equal "toPfxLen" {
+#     description = "toPfxLen"
+#     got         = data.aci_rest.rtctrlMatchRtDest.content.toPfxLen
+#     want        = "32"
+#   }
+# }
