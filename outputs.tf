@@ -1,9 +1,9 @@
 output "dn" {
-  value       = aci_rest.fvTenant.id
-  description = "Distinguished name of `fvTenant` object."
+  value       = aci_rest.rtctrlSubjP.id
+  description = "Distinguished name of `rtctrlSubjP` object."
 }
 
 output "name" {
-  value       = aci_rest.fvTenant.content.name
-  description = "Tenant name."
+  value       = aci_rest.rtctrlSubjP.content.name
+  description = "Match rule name."
 }

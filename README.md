@@ -1,22 +1,29 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-match-rule/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-match-rule/actions/workflows/test.yml)
 
-# Terraform ACI Scaffolding Module
+# Terraform ACI Match Rule Module
 
-Description
+Manages ACI Match Rule
 
 Location in GUI:
-`Tenants` » `XXX`
+`Tenants` » `XXX` » `Policies` » `Protocol` » `Match Rules`
 
 ## Examples
 
 ```hcl
-module "aci_scaffolding" {
-  source = "netascode/scaffolding/aci"
+module "aci_match_rule" {
+  source = "netascode/match-rule/aci"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
+  tenant      = "ABC"
+  name        = "MR1"
   description = "My Description"
+  prefixes = [{
+    ip          = "10.1.1.0"
+    description = "Prefix Description"
+    aggregate   = true
+    from_length = 25
+    to_length   = 32
+  }]
 }
 
 ```
@@ -38,20 +45,22 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_tenant"></a> [tenant](#input\_tenant) | Match rule tenant. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Match rule name. | `string` | n/a | yes |
+| <a name="input_description"></a> [description](#input\_description) | Description. | `string` | `""` | no |
+| <a name="input_prefixes"></a> [prefixes](#input\_prefixes) | List of prefixes. Default value `aggregate`: false. Allowed values `from_length`: 0-128. Allowed values `to_length`: 0-128. | <pre>list(object({<br>    ip          = string<br>    description = optional(string)<br>    aggregate   = optional(bool)<br>    from_length = optional(number)<br>    to_length   = optional(number)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `rtctrlSubjP` object. |
+| <a name="output_name"></a> [name](#output\_name) | Match rule name. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest.fvTenant](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.rtctrlMatchRtDest](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.rtctrlSubjP](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->
