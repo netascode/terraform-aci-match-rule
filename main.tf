@@ -9,7 +9,7 @@ resource "aci_rest" "rtctrlSubjP" {
 
 resource "aci_rest" "rtctrlMatchRtDest" {
   for_each   = { for prefix in var.prefixes : prefix.ip => prefix }
-  dn         = "${aci_rest.rtctrlSubjP.id}/dest-[${each.value.ip}]"
+  dn         = "${aci_rest.rtctrlSubjP.dn}/dest-[${each.value.ip}]"
   class_name = "rtctrlMatchRtDest"
   content = {
     ip         = each.value.ip
