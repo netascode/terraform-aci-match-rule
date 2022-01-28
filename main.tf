@@ -1,4 +1,4 @@
-resource "aci_rest" "rtctrlSubjP" {
+resource "aci_rest_managed" "rtctrlSubjP" {
   dn         = "uni/tn-${var.tenant}/subj-${var.name}"
   class_name = "rtctrlSubjP"
   content = {
@@ -7,9 +7,9 @@ resource "aci_rest" "rtctrlSubjP" {
   }
 }
 
-resource "aci_rest" "rtctrlMatchRtDest" {
+resource "aci_rest_managed" "rtctrlMatchRtDest" {
   for_each   = { for prefix in var.prefixes : prefix.ip => prefix }
-  dn         = "${aci_rest.rtctrlSubjP.dn}/dest-[${each.value.ip}]"
+  dn         = "${aci_rest_managed.rtctrlSubjP.dn}/dest-[${each.value.ip}]"
   class_name = "rtctrlMatchRtDest"
   content = {
     ip         = each.value.ip
