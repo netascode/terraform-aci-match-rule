@@ -14,8 +14,8 @@ resource "aci_rest_managed" "rtctrlMatchRtDest" {
   content = {
     ip         = each.value.ip
     aggregate  = each.value.aggregate == true ? "yes" : "no"
-    descr      = each.value.description != null ? each.value.description : ""
-    fromPfxLen = each.value.from_length != null ? each.value.from_length : 0
-    toPfxLen   = each.value.to_length != null ? each.value.to_length : 0
+    descr      = each.value.description
+    fromPfxLen = each.value.from_length
+    toPfxLen   = each.value.to_length
   }
 }

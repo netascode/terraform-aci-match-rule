@@ -33,10 +33,10 @@ variable "prefixes" {
   description = "List of prefixes. Default value `aggregate`: false. Allowed values `from_length`: 0-128. Allowed values `to_length`: 0-128."
   type = list(object({
     ip          = string
-    description = optional(string)
-    aggregate   = optional(bool)
-    from_length = optional(number)
-    to_length   = optional(number)
+    description = optional(string, "")
+    aggregate   = optional(bool, false)
+    from_length = optional(number, 0)
+    to_length   = optional(number, 0)
   }))
   default = []
 
