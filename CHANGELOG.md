@@ -1,4 +1,4 @@
-## 0.2.1 (unreleased)
+## 0.2.1
 
 - Add `regex_community_terms` attribute
 - Add `community_terms` attribute
