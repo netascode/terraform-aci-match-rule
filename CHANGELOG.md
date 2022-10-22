@@ -1,3 +1,8 @@
+## 0.2.1 (unreleased)
+
+- Add `regex_community_terms` attribute
+- Add `community_terms` attribute
+
 ## 0.2.0
 
 - Update to support new Terraform 1.3 `optional` syntax
